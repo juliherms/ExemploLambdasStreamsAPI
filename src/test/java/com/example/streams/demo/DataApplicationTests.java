@@ -1,8 +1,11 @@
 package com.example.streams.demo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,22 +48,40 @@ public class DataApplicationTests {
 
 		Period periodo = Period.between(hoje, dataFutura);
 
-		System.out.println(periodo.getDays()); //verificar
+		System.out.println(periodo.getDays()); // verificar
 
 	}
-	
+
 	/**
 	 * Testar a diferença entre datas
 	 */
 	@Test
-	public void testarSubstrairData() {
+	public void testarSubtrairData() {
 
-		
 		LocalDate hoje = LocalDate.now();
-
 		LocalDate proxData = hoje.plusYears(1);
 
-		System.out.println(proxData);
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String valorFormatado = formatador.format(proxData);
 
+		System.out.println(valorFormatado);
+
+	}
+	
+	/**
+	 * Testar formatacao de data hora
+	 */
+	@Test
+	public void testarFormatacaoDataHora() {
+		
+		LocalDateTime agora = LocalDateTime.now();
+		
+		DateTimeFormatter formatadorComHoras = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+		
+		System.out.println(agora.format(formatadorComHoras));
+		
+		
+		LocalTime intervalo = LocalTime.of(15,30);
+		System.out.println(intervalo);
 	}
 }
