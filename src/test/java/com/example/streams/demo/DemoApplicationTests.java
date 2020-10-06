@@ -3,6 +3,7 @@ package com.example.streams.demo;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
@@ -192,9 +193,49 @@ class DemoApplicationTests {
 		cursos.add(new Curso("Java 8", 113));
 		cursos.add(new Curso("C", 55));
 
+		cursos.sort(Comparator.comparingInt(Curso::getAlunos)); // usar o conversor correto melhora a performance.
+
 		int sum = cursos.stream().filter(c -> c.getAlunos() >= 100).mapToInt(c -> c.getAlunos()).sum();
-		
+
 		System.out.println(sum);
+
+	}
+
+	/**
+	 * Testa a exibição de pelo menos um curso com total de alunos acima de 100.
+	 * 
+	 */
+	@Test
+	public void testarImprimirUmCursoAcimaDe100Alunos() {
+
+		cursos.add(new Curso("Python", 45));
+		cursos.add(new Curso("JavaScript", 150));
+		cursos.add(new Curso("Java 8", 113));
+		cursos.add(new Curso("C", 55));
+
+		cursos.stream().filter(c -> c.getAlunos() >= 100).findAny().ifPresent(c -> System.out.println(c.getNome()));
+
+	}
+
+	/**
+	 * Testar filtro por quantidade de alunos com stream utilizando o total de
+	 * alunos por curso
+	 */
+	@Test
+	public void testarImprimirMediaDeAlunosPorCursoAcimaDe100() {
+
+		cursos.add(new Curso("Python", 45));
+		cursos.add(new Curso("JavaScript", 150));
+		cursos.add(new Curso("Java 8", 113));
+		cursos.add(new Curso("C", 55));
+
+		cursos.sort(Comparator.comparingInt(Curso::getAlunos)); // usar o conversor correto melhora a performance.
+
+		OptionalDouble media = cursos.stream().filter(c -> c.getAlunos() >= 100).mapToInt(c -> c.getAlunos()).average();
+
+		Double m = media.orElse(0);
+
+		System.out.println(m);
 
 	}
 }
