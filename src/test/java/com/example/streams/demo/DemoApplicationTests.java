@@ -140,6 +140,7 @@ class DemoApplicationTests {
 		//dado um objeto chama o método do objeto
 		//dado uma string chama o método da string
 		palavras.sort(Comparator.comparing(s -> s.length())); // compara o tamanho de cada string
+		//palavras.sort(Comparator.comparing(String::length)); -> isso aqui é chamado de metodo reference
 
 		// utilizando lambda
 		palavras.forEach(s -> System.out.println(s));
